@@ -1,0 +1,20 @@
+{% for interface in data.Exercise1_interfaces %}
+interface {{ interface.name }}
+ description {{ interface.description }}
+ ip address {{ interface.ipv4_addr }} {{ interface.ipv4_mask }}
+{% endfor %}
+
+router rip
+ version 2
+ network 155.1.0.0
+ network 150.1.0.0
+ no auto-summary
+
+line con 0
+ logging synchronous
+exit
+
+line vty 0 4
+ password inwk
+ login
+ transport input all
