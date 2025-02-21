@@ -1,0 +1,14 @@
+hostname {{ hostname }}
+interface Loopback0
+ ip address 150.1.{{ router_num }}.{{ router_num }} 255.255.255.255
+!
+{% for interface in interfaces %}
+interface {{ interface.name }}
+ ip address {{ interface.ip }} {{ interface.mask }}
+!
+{% endfor %}
+router ospf 1
+ router-id 150.1.{{ router_num }}.{{ router_num }}
+{% for network in ospf_networks %}
+ network {{ network.ip }} {{ network.wildcard }} area 0
+{% endfor %}
